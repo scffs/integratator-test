@@ -8,14 +8,14 @@ export class AmoCRMService {
 
   async getAuthHeader() {
     try {
-      const accessToken = await oauthService.ensureValidToken();
+      const accessToken = await oauthService.ensureValidToken()
       if (!accessToken) {
-        throw new Error('Failed to obtain valid access token');
+        throw new Error('Failed to obtain valid access token')
       }
-      return `Bearer ${accessToken}`;
+      return `Bearer ${accessToken}`
     } catch (error) {
-      console.error('Authentication failed:', error);
-      throw error;
+      console.error('Authentication failed:', error)
+      throw error
     }
   }
 

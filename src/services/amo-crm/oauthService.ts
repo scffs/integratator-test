@@ -1,6 +1,7 @@
-import fetch from 'node-fetch'
 import fs from 'node:fs'
 import path from 'node:path'
+import fetch from 'node-fetch'
+
 import env from '../../config/env'
 
 interface TokenData {
@@ -56,7 +57,8 @@ class OAuthService {
       return null
     }
 
-    const expiresAt = this.tokenData.obtained_at + this.tokenData.expires_in * 1000
+    const expiresAt =
+      this.tokenData.obtained_at + this.tokenData.expires_in * 1000
     if (Date.now() > expiresAt - 60000) {
       console.log('Access token expired or about to expire')
       return null
@@ -70,17 +72,20 @@ class OAuthService {
     }
 
     try {
-      const response = await fetch('https://www.amocrm.ru/oauth2/access_token', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          client_id: env.AMOCRM_CLIENT_ID,
-          client_secret: env.AMOCRM_CLIENT_SECRET,
-          grant_type: 'refresh_token',
-          refresh_token: this.tokenData.refresh_token,
-          redirect_uri: env.AMOCRM_REDIRECT_URI,
-        }),
-      })
+      const response = await fetch(
+        'https://www.amocrm.ru/oauth2/access_token',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            client_id: env.AMOCRM_CLIENT_ID,
+            client_secret: env.AMOCRM_CLIENT_SECRET,
+            grant_type: 'refresh_token',
+            refresh_token: this.tokenData.refresh_token,
+            redirect_uri: env.AMOCRM_REDIRECT_URI,
+          }),
+        },
+      )
 
       if (!response.ok) {
         throw new Error(`Failed to refresh token: ${response.statusText}`)
@@ -105,17 +110,20 @@ class OAuthService {
 
   async setTokenWithCode(code: string): Promise<boolean> {
     try {
-      const response = await fetch('https://www.amocrm.ru/oauth2/access_token', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          client_id: env.AMOCRM_CLIENT_ID,
-          client_secret: env.AMOCRM_CLIENT_SECRET,
-          grant_type: 'authorization_code',
-          code,
-          redirect_uri: env.AMOCRM_REDIRECT_URI,
-        }),
-      })
+      const response = await fetch(
+        'https://www.amocrm.ru/oauth2/access_token',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            client_id: env.AMOCRM_CLIENT_ID,
+            client_secret: env.AMOCRM_CLIENT_SECRET,
+            grant_type: 'authorization_code',
+            code,
+            redirect_uri: env.AMOCRM_REDIRECT_URI,
+          }),
+        },
+      )
 
       console.log('response', response.status)
       console.log('response', response.statusText)
