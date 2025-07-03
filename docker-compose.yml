@@ -1,0 +1,9 @@
+services:
+  integrator-test:
+    build: .
+    ports:
+      - "3002:3002"
+    volumes:
+      - .:/app
+    env_file:
+      - .env

@@ -1,0 +1,32 @@
+{
+  "name": "integrator-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts",
+    "format": "biome format . --write",
+    "checkAll": "biome check . --write --unsafe"
+  },
+  "dependencies": {
+    "@fastify/formbody": "^8.0.2",
+    "dotenv": "^17.0.1",
+    "fastify": "^5.4.0",
+    "googleapis": "^150.0.1",
+    "node-cron": "^4.2.0",
+    "qs": "^6.14.0",
+    "zod": "^3.25.71"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.10",
+    "@biomejs/biome": "^1.9.4",
+    "@types/node-cron": "^3.0.11",
+    "@types/qs": "^6.14.0",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "private": true
+}
